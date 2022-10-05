@@ -1,7 +1,10 @@
+import PropTypes from 'prop-types';
 import { GalleryList } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ images, onClick}) => {
+
+export const ImageGallery = ({ images }) => {
+
     return (
         <GalleryList > 
             {images.map(({ id, webformatURL, largeImageURL, tags }) => {
@@ -10,9 +13,12 @@ export const ImageGallery = ({ images, onClick}) => {
                     smallImage={webformatURL}
                     largeImage={largeImageURL}
                     description={tags}
-                    onClick={onClick}
                 />
             })}
         </GalleryList>
     )
+}
+
+ImageGallery.propTypes = {
+    images:PropTypes.arrayOf(PropTypes.object).isRequired,
 }

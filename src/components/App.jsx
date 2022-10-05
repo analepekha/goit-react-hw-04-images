@@ -1,15 +1,12 @@
-// import axios from 'axios';
 import { Component } from 'react';
 import { SearchBar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchData } from '../api/api';
 import { ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { BtnLoadMore } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import { Modal } from './Modal/Modal';
-
-
+import 'react-toastify/dist/ReactToastify.css';
+import { Wraper, Text} from 'App.styled';
 
 export class App extends Component {
   state = {
@@ -20,8 +17,6 @@ export class App extends Component {
     isVisible: false,
     searchQuery: '',
     status: 'idle',
-    modalOpen: 'false',
-    modalContent: '',
   }
   
   componentDidUpdate(_, prevState) {
@@ -29,6 +24,9 @@ export class App extends Component {
     if ((searchQuery && prevState.searchQuery !== searchQuery)
       || prevState.page !== page) {
       this.getImages(searchQuery, page)
+      this.setState({
+        isVisible: false,
+      })
     }
     
   }
@@ -57,7 +55,6 @@ export class App extends Component {
         toast.success(`Hooray! We found ${data.totalHits} images.`);
       }
       this.setState({ status: 'resolved' });
-
       this.setState(({ images }) => {
         return {
           images: [...images, ...data.hits],
@@ -76,7 +73,6 @@ export class App extends Component {
     });
     }
   }
-  
 
   onFormSubmit = (searchQuery) => {
     this.setState({ searchQuery, page:1, images:[]})
@@ -90,38 +86,21 @@ export class App extends Component {
     })
   }
 
-  onOpenModal = (e) => {
-    const modalContent = e.target.dataset.large;
-    this.setState({
-      modalOpen: 'true',
-      modalContent: modalContent,
-    })
-  }
-
-  onCloseModal = () => {
-    this.setState({
-      modalOpen: 'false',
-      modalContent: '',
-    })
-  }
-
   render() {
-    const { images, isVisible , loading, searchQuery, modalOpen, modalContent} = this.state;
+    const { images, isVisible , loading, searchQuery} = this.state;
     const isImages = Boolean(images.length);
 
     return (
-      <div>
-        {modalOpen && (
-          <Modal onClose={this.onCloseModal} content={modalContent}>
-            <img src={modalContent} alt="" />
-        </Modal>)}
+      <>
         <SearchBar onSubmit={this.onFormSubmit} />
-        {loading && <Loader/>}
-        {!searchQuery && <div>Please enter the query</div>}
-        {isImages && <ImageGallery images={images} onClick={this.onOpenModal} />}
-        {isVisible && <BtnLoadMore onClick={this.onLoadMore} />}
-        <ToastContainer/>
-        </div>
+        <Wraper>
+          {loading && <Loader/>}
+          {!searchQuery && <Text>Please enter the query :)</Text>}
+          {isImages && <ImageGallery images={images} />}
+          {isVisible && <BtnLoadMore onClick={this.onLoadMore} />}
+        </Wraper>
+        <ToastContainer autoClose={2000}/>
+      </>
     )
   }
 };
@@ -145,3 +124,18 @@ export class App extends Component {
     // if (status === 'resolved') {
     //   return <ImageGallery />;
     // }
+
+     // onOpenModal = (e) => {
+  //   const modalContent = e.target.dataset.large;
+  //   this.setState({
+  //     modalOpen: 'true',
+  //     modalContent,
+  //   })
+  // }
+
+  // closeModal = () => {
+  //   this.setState({
+  //     modalOpen: 'false',
+  //     modalContent: '',
+  //   })
+  // }

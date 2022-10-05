@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { ModalWindow, Overlay } from "./Modal.styled";
 
@@ -15,7 +16,7 @@ export class Modal extends Component{
     }
 
     closeModal = ({ target, currentTarget, code }) => {
-        console.log(code);
+        // console.log(code);
         if (target === currentTarget || code === "Escape") {
           this.props.onClose()
         }
@@ -23,15 +24,20 @@ export class Modal extends Component{
 
     render() {
         const { children, content } = this.props;
+        const { closeModal } = this;
         return createPortal(
-            <Overlay onClick={this.closeModal}>
+            <Overlay onClick={closeModal}>
                 <ModalWindow>
                     <img src={content} alt="" />
                     {children}
-                </ModalWindow>  
+                </ModalWindow>
             </Overlay>,
             modalRoot
-    )
+        );
     }
-    
+}
+
+Modal.propTypes = {
+    closeModal: PropTypes.func,
+    children: PropTypes.object.isRequired,
 }

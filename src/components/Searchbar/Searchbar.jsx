@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-// import PropTypes from 'prop-types';
 import {
     HeaderSearch,
     FormSearch,
@@ -11,6 +8,10 @@ import {
     LabelSearch,
     InputSearch
 } from './Searchbar.styled';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export class SearchBar extends Component {
   state = {
@@ -23,10 +24,9 @@ export class SearchBar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
 
     if (this.state.searchQuery.trim() === '') {
-      toast.error('Opps...Try again!');
+      toast.warn('Opps...Try again!');
       return;
     }
 
@@ -59,5 +59,9 @@ export class SearchBar extends Component {
         </HeaderSearch>
     )
   }
-    
+}
+
+SearchBar.propTypes = {
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
 }

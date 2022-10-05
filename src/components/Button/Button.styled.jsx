@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   padding: 8px 16px;
+  margin-top: 20px;
   border-radius: 2px;
   background-color: #3f51b5;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
-  display: inline-block;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
   color: #fff;
   border: 0;
   text-decoration: none;
