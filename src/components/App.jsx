@@ -97,7 +97,7 @@ export class App extends Component {
           {loading && <Loader/>}
           {!searchQuery && <Text>Please, enter the query :)</Text>}
           {isImages && <ImageGallery images={images} />}
-          {isVisible && <BtnLoadMore onClick={this.onLoadMore} />}
+          {isVisible && isImages && <BtnLoadMore onClick={this.onLoadMore} />}
         </Wraper>
         <ToastContainer autoClose={2000}/>
       </>
