@@ -95,7 +95,7 @@ export class App extends Component {
         <SearchBar onSubmit={this.onFormSubmit} />
         <Wraper>
           {loading && <Loader/>}
-          {!searchQuery && <Text>Please enter the query :)</Text>}
+          {!searchQuery && <Text>Please, enter the query :)</Text>}
           {isImages && <ImageGallery images={images} />}
           {isVisible && <BtnLoadMore onClick={this.onLoadMore} />}
         </Wraper>
