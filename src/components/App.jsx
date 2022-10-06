@@ -75,6 +75,9 @@ export class App extends Component {
   }
 
   onFormSubmit = (searchQuery) => {
+    if (searchQuery === this.state.searchQuery) {
+      toast.error('Oops... Something went wrong, repeat your query!')
+    }
     this.setState({ searchQuery, page:1, images:[]})
   }
 
