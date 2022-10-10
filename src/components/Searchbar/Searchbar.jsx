@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
 import {
@@ -9,35 +8,27 @@ import {
     InputSearch
 } from './Searchbar.styled';
 import { toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
 
 
-export class SearchBar extends Component {
-  state = {
-    searchQuery: '',
-  }
+export const SearchBar = ({onSubmit}) => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  handleChange = e => {
-    this.setState({searchQuery:e.currentTarget.value.toLowerCase()})
-  }
+  const handleChange = e => setSearchQuery(e.currentTarget.value.toLowerCase());  
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.searchQuery.trim() === '') {
+    if (searchQuery.trim() === '') {
       toast.warn('Opps...Try again!');
       return;
     }
 
-    this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
+    onSubmit(searchQuery);
+    setSearchQuery('');
   }
-
-  render() {
-    const { searchQuery } = this.state;
-    const { handleSubmit, handleChange } = this;
-    
+  
     return (
         <HeaderSearch>
           <FormSearch onSubmit={handleSubmit}>
@@ -58,7 +49,6 @@ export class SearchBar extends Component {
           </FormSearch>
         </HeaderSearch>
     )
-  }
 }
 
 SearchBar.propTypes = {
