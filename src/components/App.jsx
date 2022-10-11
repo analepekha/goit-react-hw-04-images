@@ -48,9 +48,8 @@ export const App = () => {
         toast.success(`Hooray! We found ${data.totalHits} images.`);
       }
       setStatus('resolved');
-      setImages((images) => {
-        return [...images, ...data.hits]
-      });
+      setImages(prevImages => [...prevImages, ...data.hits]
+      );
 
       if (page < Math.ceil(data.total / 12)) {
         setIsVisible(true);
@@ -65,7 +64,7 @@ export const App = () => {
       setLoading(false);
     }
     }
-    // getImages();
+    getImages();
     // getImages(searchQuery, page);
     setIsVisible(false);
   }, [page, searchQuery])
