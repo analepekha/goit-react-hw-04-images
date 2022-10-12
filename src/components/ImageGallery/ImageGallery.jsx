@@ -3,7 +3,7 @@ import { GalleryList } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
 
-export const ImageGallery = ({ images }) => {
+export const ImageGallery = ({ onClick, images }) => {
 
     return (
         <GalleryList > 
@@ -13,6 +13,7 @@ export const ImageGallery = ({ images }) => {
                     smallImage={webformatURL}
                     largeImage={largeImageURL}
                     description={tags}
+                    onClick={onClick}
                 />
             })}
         </GalleryList>
@@ -20,5 +21,7 @@ export const ImageGallery = ({ images }) => {
 }
 
 ImageGallery.propTypes = {
-    images:PropTypes.arrayOf(PropTypes.object).isRequired,
+    images: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onClick:PropTypes.func.isRequired,
+    
 }

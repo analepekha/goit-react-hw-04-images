@@ -8,8 +8,9 @@ import {
     InputSearch
 } from './Searchbar.styled';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export const SearchBar = ({onSubmit}) => {
